@@ -85,15 +85,6 @@ export default function App() {
 
   React.useEffect(() => {
     setLoading(true);
-    fetch('/api').then(response => response.json()).then(data => {
-      setClaims(data.rows);
-      setTotal(data.total);
-      setLoading(false);
-    });
-  }, []);
-
-  React.useEffect(() => {
-    setLoading(true);
     const params = new URLSearchParams();
     params.append("columnsearch", "product_code");
     params.append("valuesearch", filterValue);
@@ -290,50 +281,50 @@ export default function App() {
   return (
     <>
       {openModal > -1 ? <div role='presentation' id="modal" className="absolute flex justify-center items-center top-0 left-0 h-screen w-screen z-[100] bg-[rgba(0,0,0,0.5)]" onClick={() => setOpenModal(-1)}>
-        <div role='presentation' className="h-[70%] w-[80%] max-w-[700px] bg-[#27272a] rounded-lg p-[3%]" onClick={(e) => e.stopPropagation()}>
+        <div role='presentation' className="h-[70%] w-[80%] max-w-[700px] bg-[#ffffff] rounded-lg p-[3%]" onClick={(e) => e.stopPropagation()}>
           {claims.map((claim, index) => {
             if (claim.id === openModal) {
               return (
                 <div key={index} className="flex flex-col gap-3 h-full">
                   <div className="flex justify-between items-center">
-                    <h1 className="text-white text-2xl">Claim</h1>
+                    <h1 className=" text-2xl">Claim</h1>
                     <Button variant="flat" size="sm" onClick={() => setOpenModal(-1)}>Close</Button>
                   </div>
                   <div className="flex flex-col gap-2 h-full">
                     <div className="flex gap-2">
-                      <span className="text-white">User ID:</span>
-                      <span className="text-white">{claim.userid}</span>
+                      <span className="font-bold">User ID:</span>
+                      <span className="">{claim.userid}</span>
                     </div>
                     <div className="flex gap-2">
-                      <span className="text-white">Status:</span>
+                      <span className="font-bold">Status:</span>
                       <Chip className="capitalize" color={statusColorMap[claim.status]} size="sm" variant="flat">
                         {claim.status}
                       </Chip>
                     </div>
                     <div className="flex gap-2">
-                      <span className="text-white">Name:</span>
-                      <span className="text-white">{claim.name}</span>
+                      <span className="font-bold">Name:</span>
+                      <span className="">{claim.name}</span>
                     </div>
                     <div className="flex gap-2">
-                      <span className="text-white">Date:</span>
-                      <span className="text-white">{new Date(claim.date).toISOString().split('T')[0]}</span>
+                      <span className="font-bold">Date:</span>
+                      <span className="">{new Date(claim.date).toISOString().split('T')[0]}</span>
                     </div>
                     <div className="flex gap-2">
-                      <span className="text-white">Product code:</span>
-                      <span className="text-white">{claim.product_code}</span>
+                      <span className="font-bold">Product code:</span>
+                      <span className="">{claim.product_code}</span>
                     </div>
                     <div className="flex gap-2">
-                      <span className="text-white">Document N.:</span>
-                      <span className="text-white">{claim.documentN}</span>
+                      <span className="font-bold">Document N.:</span>
+                      <span className="">{claim.documentN}</span>
                     </div>
                     <div className="flex gap-2">
-                      <span className="text-white">Product quantity:</span>
-                      <span className="text-white">{claim.product_quantity}</span>
+                      <span className="font-bold">Product quantity:</span>
+                      <span className="">{claim.product_quantity}</span>
                     </div>
                     <div className="flex gap-2 flex-col flex-1 overflow-hidden">
-                      <span className="text-white">Claim reason:</span>
-                      <div className="bg-[#18181b] rounded-lg flex-1 p-[2%] overflow-scroll mb-[10%]">
-                        <p className="text-white">{claim.claim_reason}</p>
+                      <span className="font-bold">Claim reason:</span>
+                      <div className="bg-[#cacaca] rounded-lg flex-1 p-[2%] overflow-scroll mb-[10%]">
+                        <p className="">{claim.claim_reason}</p>
                       </div>
                     </div>
                   </div>
