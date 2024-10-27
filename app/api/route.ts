@@ -32,8 +32,6 @@ export async function GET(request: Request) {
     const rows = await executeQuery(query);
     const totalResult = await executeQuery(countQuery) as any; 
 
-    console.log(rows);
-
     return new Response(JSON.stringify({ rows, total : totalResult[0].total }), {
         headers: { 'content-type': 'application/json' },
     });
