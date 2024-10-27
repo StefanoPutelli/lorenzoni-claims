@@ -91,9 +91,22 @@ export default function App() {
     params.append("limit", rowsPerPage.toString());
     params.append("offset", ((page - 1) * rowsPerPage).toString());
 
-    fetch(`/api?${params.toString()}`).then(response => response.json()).then(data => {
-      setClaims(data.rows);
-      setTotal(data.total);
+    fetch(`/api?${params.toString()}`, {
+      headers: {
+        'Content-Type': 'application/json',
+        'authorization': localStorage.getItem('token') || ''
+      }
+    }).then(response => {
+      if (response.status === 401) {
+        window.location.href = '/login';
+        return;
+      }
+      return response.json();
+    }).then(data => {
+      if (data) {
+        setClaims(data.rows);
+        setTotal(data.total);
+      }
       setLoading(false);
     });
   }, [toSearchFilterValue, page, rowsPerPage]);
@@ -102,11 +115,14 @@ export default function App() {
     fetch(`/api`, {
       method: 'POST',
       headers: {
-        'Content-Type': 'application/json'
+        'Content-Type': 'application/json',
+        'authorization': localStorage.getItem('token') || ''
       },
       body: JSON.stringify({ id: _id })
     }).then((response) => {
-      console.log(response);
+      if (response.status === 401) {
+        window.location.href = '/login';
+      }
       if (response.ok) {
         setClaims(claims.map(claim => {
           if (claim.id === _id) {
