@@ -27,10 +27,12 @@ export async function GET(request: Request) {
         countQuery += params.join(' AND ');
     }
 
-    query += `ORDER BY ${columnOrder} ${direction} OFFSET ${offset} ROWS FETCH NEXT ${limit} ROWS ONLY`;
+    query += `ORDER BY ${columnOrder} ${direction}, date DESC, id DESC OFFSET ${offset} ROWS FETCH NEXT ${limit} ROWS ONLY`;
 
     const rows = await executeQuery(query);
     const totalResult = await executeQuery(countQuery) as any; 
+
+    console.log(rows);
 
     return new Response(JSON.stringify({ rows, total : totalResult[0].total }), {
         headers: { 'content-type': 'application/json' },

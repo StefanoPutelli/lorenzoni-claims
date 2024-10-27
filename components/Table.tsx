@@ -30,7 +30,7 @@ const statusColorMap: Record<string, ChipProps["color"]> = {
   pending: "warning"
 };
 
-const INITIAL_VISIBLE_COLUMNS = ["actions", "status", "userid", "date", "product_code", "documentN", "product_quantity", "claim_reason"];
+const INITIAL_VISIBLE_COLUMNS = ["id", "actions", "status", "userid", "date", "product_code", "documentN", "product_quantity", "claim_reason"];
 
 
 interface Claim {
@@ -46,6 +46,7 @@ interface Claim {
 }
 
 const columns = [
+  { name: "ID", uid: "id", sortable: false },
   { name: "Actions", uid: "actions", sortable: false },
   { name: "userid", uid: "userid", sortable: false },
   { name: "Name", uid: "name", sortable: false },
